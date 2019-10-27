@@ -26,9 +26,8 @@ namespace fifa
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddDbContext<ClubsContext>();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,23 +37,13 @@ namespace fifa
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
+            app.UseMvc(routes =>
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                routes.MapRoute(
+                    name: "Default",
+                    template: "{controller=Main}/{action=Index}/{id?}");
             });
+            app.UseStaticFiles();
         }
     }
 }

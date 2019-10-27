@@ -1,0 +1,53 @@
+@using Microsoft.AspNetCore.Http
+@model IEnumerable<fifa.Models.Club>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <a href="Club?id=@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Logo)" alt=""/>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@if (Context.Request.Query["page"] != "1"){
+    <a href='Clubs?page=@(Int32.Parse(Context.Request.Query["page"]) - 1)'>Previous</a>
+}
+<br/>
+<a href='Clubs?page=@(Int32.Parse(Context.Request.Query["page"]) + 1)'>Next</a>
+</body>
+</html>
