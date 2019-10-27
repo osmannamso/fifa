@@ -10,6 +10,11 @@ namespace fifa.Data
         }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Player> Players { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<League> Leagues { get; set; }
+        public DbSet<Season> Seasons { get; set; }
+        public DbSet<TopScorers> TopScorers { get; set; }
+        public DbSet<TopSupport> TopSupports { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

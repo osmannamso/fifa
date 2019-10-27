@@ -10,10 +10,22 @@
 <head>
     <title></title>
 </head>
+<style>
+    #players object {
+        width: 700px;
+        height: 1000px;
+    }
+</style>
 <body>
 <div>
     <h2>@Model.Name</h2>
     <img src="@Model.Logo"/>
+    <p>Players:</p>
+    <div id="players"></div>
 </div>
+<script src="/js/jquery.js"></script>
+<script>
+  $("#players").html('<object data="Players?id=@Model.Id">');
+</script>
 </body>
 </html>

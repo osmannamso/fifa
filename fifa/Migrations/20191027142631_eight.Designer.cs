@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using fifa.Data;
@@ -9,9 +10,10 @@ using fifa.Data;
 namespace fifa.Migrations
 {
     [DbContext(typeof(ClubsContext))]
-    partial class ClubsContextModelSnapshot : ModelSnapshot
+    [Migration("20191027142631_eight")]
+    partial class eight
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,9 +93,6 @@ namespace fifa.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<int?>("Place")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

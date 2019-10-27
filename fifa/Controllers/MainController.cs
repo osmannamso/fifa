@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -33,6 +34,12 @@ namespace fifa.Controllers
         {
             var club = _dbContext.Clubs.FirstOrDefault(c => c.Id == id);
             return View(club);
+        }
+
+        public async Task<IActionResult> Players(int id)
+        {
+            var players = _dbContext.Players.Where(c => c.ClubId == id).ToList();
+            return View(players);
         }
     }
 }
