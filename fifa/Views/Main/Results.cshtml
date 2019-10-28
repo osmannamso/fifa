@@ -1,0 +1,84 @@
+@model IEnumerable<fifa.Models.Results>
+@{
+    int place = 1;
+}
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <thead>
+    <tr>
+        <th>
+            Place
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Club)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Games)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wins)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Draws)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Loses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScoredGoals)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MissedGoals)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GoalDifference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @place
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Logo)"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Club)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Games)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wins)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Draws)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoredGoals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MissedGoals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoalDifference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+        </tr>
+        @(place++)
+    }
+    </tbody>
+</table>

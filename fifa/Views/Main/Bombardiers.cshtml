@@ -1,0 +1,54 @@
+@model IEnumerable<fifa.Models.TopScorersView>
+@{
+    int place = 1;
+}
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <thead>
+    <tr>
+        <th>
+            Place
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Club)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @place
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Photo)"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Club)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Logo)"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+        </tr>
+        @(place++)
+    }
+    </tbody>
+</table>
