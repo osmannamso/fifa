@@ -1,0 +1,48 @@
+@model IEnumerable<fifa.Models.GameView>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeClub)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.HomeLogo)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuestScore)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.GuestLogo)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuestClub)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeGoals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuestGoals)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</body>
+</html>

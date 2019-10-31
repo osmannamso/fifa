@@ -1,0 +1,52 @@
+@using Npgsql
+@model IEnumerable<fifa.Models.Season>
+
+@{
+    Layout = null;
+    int next = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            UEFA
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <a href="Leagues?season=@Html.DisplayFor(modelItem => item.Name)">@Html.DisplayFor(modelItem => item.Name)</a>
+                @{
+                    next = Int32.Parse(item.Name) + 1;
+                }
+            </td>
+            <td>
+                <a target="_blank" href="UefaChampionsPlay?season=@Html.DisplayFor(modelItem => item.Name)">Uefa Only Once</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table><br/>
+<a target="_blank" href="PlaySeason?season=@(next)">Play new season</a>
+</body>
+</html>

@@ -1,0 +1,70 @@
+@model fifa.Models.UefaChampions
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    @foreach (var group in @Model.Groups) {
+        <h3>Group @group.Name</h3>
+    <table>
+        <tr>
+            <th>Logo</th>
+            <th>Club</th>
+            <th>Games</th>
+            <th>Wins</th>
+            <th>Draws</th>
+            <th>Loses</th>
+            <th>ScoredGoals</th>
+            <th>MissedGoals</th>
+            <th>GoalDifference</th>
+            <th>Score</th>
+        </tr>
+        @foreach (var result in group.ResultsList)
+        {
+            <tr>
+                <th><img src="@result.Logo"/></th>
+                <th>@result.Club</th>
+                <th>@result.Games</th>
+                <th>@result.Wins</th>
+                <th>@result.Draws</th>
+                <th>@result.Loses</th>
+                <th>@result.ScoredGoals</th>
+                <th>@result.MissedGoals</th>
+                <th>@result.GoalDifference</th>
+                <th>@result.Score</th>
+            </tr>
+        }
+    </table><hr/>
+    }
+    <h2>1/16</h2>
+    @foreach (var game in @Model.Sixteen)
+    {
+        <p><img src="@game.HomeLogo"/> @game.HomeClub @game.HomeScore : @game.GuestScore @game.GuestClub <img src="@game.GuestLogo"/></p>
+        <p>@game.HomeGoals || @game.GuestGoals</p><br/>
+    }
+    <h2>1/8</h2>
+    @foreach (var game in @Model.Eight)
+    {
+        <p><img src="@game.HomeLogo"/> @game.HomeClub @game.HomeScore : @game.GuestScore @game.GuestClub <img src="@game.GuestLogo"/></p>
+        <p>@game.HomeGoals || @game.GuestGoals</p><br/>
+    }
+    <h2>1/4</h2>
+    @foreach (var game in @Model.Four)
+    {
+        <p><img src="@game.HomeLogo"/> @game.HomeClub @game.HomeScore : @game.GuestScore @game.GuestClub <img src="@game.GuestLogo"/></p>
+        <p>@game.HomeGoals || @game.GuestGoals</p><br/>
+    }
+    <h2>Final</h2>
+    <p> <img src="@Model.Final.HomeLogo"/> @Model.Final.HomeClub @Model.Final.HomeScore : @Model.Final.GuestScore @Model.Final.GuestClub <img src="@Model.Final.GuestLogo"/></p>
+    <p>@Model.Final.HomeGoals || @Model.Final.GuestGoals</p>
+</div>
+</body>
+</html>

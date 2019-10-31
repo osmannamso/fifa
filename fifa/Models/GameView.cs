@@ -1,8 +1,10 @@
 namespace fifa.Models
 {
-    public class Game
+    public class GameView
     {
         public int Id { get; set; }
+        public string HomeLogo { get; set; }
+        public string GuestLogo { get; set; }
         public string HomeClub { get; set; }
         public string GuestClub { get; set; }
         public string League { get; set; }
@@ -12,7 +14,5 @@ namespace fifa.Models
         public int HomeScore { get; set; }
         public int GuestScore { get; set; }
         public string Winner { get; set; }
-        public string? HomeLogo { get; set; }
-        public string? GuestLogo { get; set; }
     }
 }

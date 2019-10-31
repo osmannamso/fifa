@@ -77,7 +77,7 @@ namespace fifa.Controllers
             return View(players);
         }
         
-        public void Play(Club a, Club b, string Season="Training", string League="Training", bool notFinal=true)
+        public Game Play(Club a, Club b, string Season="Training", string League="Training", bool notFinal=true)
         {
             int homePlus = 0;
             if (notFinal)
@@ -141,7 +141,7 @@ namespace fifa.Controllers
 
             for (int i = 0; i < 90; i++)
             {
-                if (rnd.Next(1, 41 - Math.Abs(aAvg - bAvg)) == 1)
+                if (rnd.Next(1, 51 - Math.Abs(aAvg - bAvg)) == 1)
                 {
                     if (rnd.Next(aAvg, 101 + homePlus) > rnd.Next(bAvg, 101))
                     {
@@ -235,6 +235,8 @@ namespace fifa.Controllers
             };
             _dbContext.Entry(game).State = EntityState.Added;
             _dbContext.SaveChanges();
+
+            return game;
         }
 
         public void LeaguePlay(League league, Season season)
@@ -336,6 +338,553 @@ namespace fifa.Controllers
                 }
             }
             return View(results);
+        }
+
+        public IActionResult UefaChampionsPlay(string season)
+        {
+            Random rnd = new Random();
+            var leagues = _dbContext.Leagues.ToList();
+            var clubs = new List<Club>();
+            foreach (League league in leagues)
+            {
+                var moveClubs = GetForUEFA(league.Id, season, league.Name);
+                foreach (var club in moveClubs)
+                {
+                    clubs.Add(club);
+                }
+            }
+
+            string[] alphabet = new string[8]{"A", "B", "C", "D", "E", "F", "G", "H"};
+            var groups = new List<Group>();
+            foreach (var letter in alphabet)
+            {
+                var groupClubs = new List<Club>();
+                for (int i = 0; i < 4; i++)
+                {
+                    int numberRnd = rnd.Next(0, clubs.Count);
+                    groupClubs.Add(clubs[numberRnd]);
+                    clubs.RemoveAt(numberRnd);
+                }
+                var results = new List<Results>();
+                foreach (var aClub in groupClubs)
+                {
+                    foreach (var bClub in groupClubs)
+                    {
+                        if (aClub.Name != bClub.Name)
+                        {
+                            Play(aClub, bClub, season, season + letter);
+                        }
+                    }
+                }
+
+                foreach (var club in groupClubs)
+                {
+                    var result = new Results()
+                    {
+                        Games = 0,
+                        Wins = 0,
+                        Draws = 0,
+                        Loses = 0,
+                        ScoredGoals = 0,
+                        MissedGoals = 0,
+                        GoalDifference = 0,
+                        Score = 0,
+                        Club = club.Name,
+                        Logo = club.Logo
+                    }; 
+                    var games = _dbContext.Games.Where(g => g.Season == season && g.League == season + letter && (g.HomeClub == club.Name || g.GuestClub == club.Name)).ToList();
+                    foreach (var game in games)
+                    {
+                        result.Games++;
+                        if (game.Winner == club.Name)
+                        {
+                            result.Wins++;
+                            result.Score += 3;
+                        } else if (game.Winner == "Draw")
+                        {
+                            result.Draws++;
+                            result.Score += 1;
+                        }
+                        else
+                        {
+                            result.Loses++;
+                        }
+
+                        if (game.HomeClub == club.Name)
+                        {
+                            result.ScoredGoals += game.HomeScore;
+                            result.MissedGoals += game.GuestScore;
+                        } else if (game.GuestClub == club.Name)
+                        {
+                            result.ScoredGoals += game.GuestScore;
+                            result.MissedGoals += game.HomeScore;
+                        }
+                    }
+
+                    result.GoalDifference = result.ScoredGoals + result.MissedGoals;
+                    results.Add(result);
+                }
+                
+                for (int i = 0; i < results.Count; i++)
+                {
+                    for (int j = i; j < results.Count; j++)
+                    {
+                        if (results[i].Score < results[j].Score)
+                        {
+                            Results r = results[i];
+                            results[i] = results[j];
+                            results[j] = r;
+                        }else if (results[i].Score == results[j].Score)
+                        {
+                            if (results[i].ScoredGoals < results[j].ScoredGoals)
+                            {
+                                Results r = results[i];
+                                results[i] = results[j];
+                                results[j] = r;
+                            }
+                        }
+                    }
+                }
+                
+                groups.Add(new Group()
+                {
+                    Name = letter,
+                    ResultsList = results
+                });
+            }
+            
+            List<Club> sixteenClubs = new List<Club>();
+            foreach (var group in groups)
+            {
+                sixteenClubs.Add(_dbContext.Clubs.FirstOrDefault(c => c.Name == group.ResultsList[0].Club));
+                sixteenClubs.Add(_dbContext.Clubs.FirstOrDefault(c => c.Name == group.ResultsList[1].Club));
+            }
+            
+            List<Game> sixteen = new List<Game>();
+            List<Club> eightClubs = new List<Club>();
+            for (int i = 4; i <= 16; i += 4)
+            {
+                var playoffs = sixteenClubs;
+                var aGame = Play(playoffs[i - 1], playoffs[i - 3], season, season + "sixteen");
+                var bGame = Play(playoffs[i - 3], playoffs[i - 1], season, season + "sixteen");
+
+                if (aGame.HomeScore + bGame.GuestScore > aGame.GuestScore + bGame.HomeScore)
+                {
+                    eightClubs.Add(playoffs[i - 1]);
+                } else if (aGame.HomeScore + bGame.GuestScore < aGame.GuestScore + bGame.HomeScore)
+                {
+                    eightClubs.Add(playoffs[i - 3]);
+                }
+                else
+                {
+                    if (aGame.GuestScore < bGame.GuestScore)
+                    {
+                        eightClubs.Add(playoffs[i - 1]);    
+                    } else if (aGame.GuestScore > bGame.GuestScore)
+                    {
+                        eightClubs.Add(playoffs[i - 3]);
+                    }
+                    else
+                    {
+                        int rndPenalty = rnd.Next(0, 2);
+                        if (rndPenalty == 0)
+                        {
+                            eightClubs.Add(playoffs[i - 1]);
+                        }
+                        else
+                        {
+                            eightClubs.Add(playoffs[i - 3]);
+                        }
+                    }
+                }
+                
+                var cGame = Play(playoffs[i - 2], playoffs[i - 4], season, season + "sixteen");
+                var dGame = Play(playoffs[i - 4], playoffs[i - 2], season, season + "sixteen");
+                
+                if (cGame.HomeScore + dGame.GuestScore > cGame.GuestScore + dGame.HomeScore)
+                {
+                    eightClubs.Add(playoffs[i - 2]);
+                } else if (cGame.HomeScore + dGame.GuestScore < cGame.GuestScore + dGame.HomeScore)
+                {
+                    eightClubs.Add(playoffs[i - 4]);
+                }
+                else
+                {
+                    if (cGame.GuestScore < dGame.GuestScore)
+                    {
+                        eightClubs.Add(playoffs[i - 2]);    
+                    } else if (cGame.GuestScore > dGame.GuestScore)
+                    {
+                        eightClubs.Add(playoffs[i - 4]);
+                    }
+                    else
+                    {
+                        int rndPenalty = rnd.Next(0, 2);
+                        if (rndPenalty == 0)
+                        {
+                            eightClubs.Add(playoffs[i - 2]);
+                        }
+                        else
+                        {
+                            eightClubs.Add(playoffs[i - 4]);
+                        }
+                    }
+                }
+                
+                aGame.HomeLogo = playoffs[i - 1].Logo;
+                bGame.HomeLogo = playoffs[i - 3].Logo;
+                aGame.GuestLogo = playoffs[i - 3].Logo;
+                bGame.GuestLogo = playoffs[i - 1].Logo;
+                
+                cGame.HomeLogo = playoffs[i - 2].Logo;
+                dGame.HomeLogo = playoffs[i - 4].Logo;
+                cGame.GuestLogo = playoffs[i - 4].Logo;
+                dGame.GuestLogo = playoffs[i - 2].Logo;
+
+                sixteen.Add(aGame);
+                sixteen.Add(bGame);
+                sixteen.Add(cGame);
+                sixteen.Add(dGame);
+            }
+            
+            List<Game> eight = new List<Game>();
+            List<Club> fourClubs = new List<Club>();
+            for (int i = 4; i <= 8; i += 4)
+            {
+                var playoffs = eightClubs;
+                var aGame = Play(playoffs[i - 1], playoffs[i - 3], season, season + "eight");
+                var bGame = Play(playoffs[i - 3], playoffs[i - 1], season, season + "eight");
+
+                if (aGame.HomeScore + bGame.GuestScore > aGame.GuestScore + bGame.HomeScore)
+                {
+                    fourClubs.Add(playoffs[i - 1]);
+                } else if (aGame.HomeScore + bGame.GuestScore < aGame.GuestScore + bGame.HomeScore)
+                {
+                    fourClubs.Add(playoffs[i - 3]);
+                }
+                else
+                {
+                    if (aGame.GuestScore < bGame.GuestScore)
+                    {
+                        fourClubs.Add(playoffs[i - 1]);    
+                    } else if (aGame.GuestScore > bGame.GuestScore)
+                    {
+                        fourClubs.Add(playoffs[i - 3]);
+                    }
+                    else
+                    {
+                        int rndPenalty = rnd.Next(0, 2);
+                        if (rndPenalty == 0)
+                        {
+                            fourClubs.Add(playoffs[i - 1]);
+                        }
+                        else
+                        {
+                            fourClubs.Add(playoffs[i - 3]);
+                        }
+                    }
+                }
+                
+                var cGame = Play(playoffs[i - 2], playoffs[i - 4], season, season + "eight");
+                var dGame = Play(playoffs[i - 4], playoffs[i - 2], season, season + "eight");
+                
+                if (cGame.HomeScore + dGame.GuestScore > cGame.GuestScore + dGame.HomeScore)
+                {
+                    fourClubs.Add(playoffs[i - 2]);
+                } else if (cGame.HomeScore + dGame.GuestScore < cGame.GuestScore + dGame.HomeScore)
+                {
+                    fourClubs.Add(playoffs[i - 4]);
+                }
+                else
+                {
+                    if (cGame.GuestScore < dGame.GuestScore)
+                    {
+                        fourClubs.Add(playoffs[i - 2]);    
+                    } else if (cGame.GuestScore > dGame.GuestScore)
+                    {
+                        fourClubs.Add(playoffs[i - 4]);
+                    }
+                    else
+                    {
+                        int rndPenalty = rnd.Next(0, 2);
+                        if (rndPenalty == 0)
+                        {
+                            fourClubs.Add(playoffs[i - 2]);
+                        }
+                        else
+                        {
+                            fourClubs.Add(playoffs[i - 4]);
+                        }
+                    }
+                }
+                
+                aGame.HomeLogo = playoffs[i - 1].Logo;
+                bGame.HomeLogo = playoffs[i - 3].Logo;
+                aGame.GuestLogo = playoffs[i - 3].Logo;
+                bGame.GuestLogo = playoffs[i - 1].Logo;
+                
+                cGame.HomeLogo = playoffs[i - 2].Logo;
+                dGame.HomeLogo = playoffs[i - 4].Logo;
+                cGame.GuestLogo = playoffs[i - 4].Logo;
+                dGame.GuestLogo = playoffs[i - 2].Logo;
+                
+                eight.Add(aGame);
+                eight.Add(bGame);
+                eight.Add(cGame);
+                eight.Add(dGame);
+            }
+            
+            List<Game> four = new List<Game>();
+            List<Club> twoClubs = new List<Club>();
+            for (int i = 4; i <= 4; i += 4)
+            {
+                var playoffs = fourClubs;
+                var aGame = Play(playoffs[i - 1], playoffs[i - 3], season, season + "four");
+                var bGame = Play(playoffs[i - 3], playoffs[i - 1], season, season + "four");
+
+                if (aGame.HomeScore + bGame.GuestScore > aGame.GuestScore + bGame.HomeScore)
+                {
+                    twoClubs.Add(playoffs[i - 1]);
+                } else if (aGame.HomeScore + bGame.GuestScore < aGame.GuestScore + bGame.HomeScore)
+                {
+                    twoClubs.Add(playoffs[i - 3]);
+                }
+                else
+                {
+                    if (aGame.GuestScore < bGame.GuestScore)
+                    {
+                        twoClubs.Add(playoffs[i - 1]);    
+                    } else if (aGame.GuestScore > bGame.GuestScore)
+                    {
+                        twoClubs.Add(playoffs[i - 3]);
+                    }
+                    else
+                    {
+                        int rndPenalty = rnd.Next(0, 2);
+                        if (rndPenalty == 0)
+                        {
+                            twoClubs.Add(playoffs[i - 1]);
+                        }
+                        else
+                        {
+                            twoClubs.Add(playoffs[i - 3]);
+                        }
+                    }
+                }
+                
+                var cGame = Play(playoffs[i - 2], playoffs[i - 4], season, season + "four");
+                var dGame = Play(playoffs[i - 4], playoffs[i - 2], season, season + "four");
+                
+                if (cGame.HomeScore + dGame.GuestScore > cGame.GuestScore + dGame.HomeScore)
+                {
+                    twoClubs.Add(playoffs[i - 2]);
+                } else if (cGame.HomeScore + dGame.GuestScore < cGame.GuestScore + dGame.HomeScore)
+                {
+                    twoClubs.Add(playoffs[i - 4]);
+                }
+                else
+                {
+                    if (cGame.GuestScore < dGame.GuestScore)
+                    {
+                        twoClubs.Add(playoffs[i - 2]);    
+                    } else if (cGame.GuestScore > dGame.GuestScore)
+                    {
+                        twoClubs.Add(playoffs[i - 4]);
+                    }
+                    else
+                    {
+                        int rndPenalty = rnd.Next(0, 2);
+                        if (rndPenalty == 0)
+                        {
+                            twoClubs.Add(playoffs[i - 2]);
+                        }
+                        else
+                        {
+                            twoClubs.Add(playoffs[i - 4]);
+                        }
+                    }
+                }
+                
+                aGame.HomeLogo = playoffs[i - 1].Logo;
+                bGame.HomeLogo = playoffs[i - 3].Logo;
+                aGame.GuestLogo = playoffs[i - 3].Logo;
+                bGame.GuestLogo = playoffs[i - 1].Logo;
+                
+                cGame.HomeLogo = playoffs[i - 2].Logo;
+                dGame.HomeLogo = playoffs[i - 4].Logo;
+                cGame.GuestLogo = playoffs[i - 4].Logo;
+                dGame.GuestLogo = playoffs[i - 2].Logo;
+                
+                four.Add(aGame);
+                four.Add(bGame);
+                four.Add(cGame);
+                four.Add(dGame);
+            }
+            var final = Play(twoClubs[0], twoClubs[1], season, season + "final", false);
+            final.HomeLogo = twoClubs[0].Logo;
+            final.GuestLogo = twoClubs[1].Logo;
+            
+            int rndFinalPenalty = rnd.Next(0, 2);
+            if (rndFinalPenalty == 0)
+            {
+                final.Winner = twoClubs[0].Name;
+            }
+            else
+            {
+                final.Winner = twoClubs[1].Name;
+            }
+
+            UefaChampions uefaChampions = new UefaChampions()
+            {
+                Groups = groups,
+                Sixteen = sixteen,
+                Eight = eight,
+                Four = four,
+                Final = final
+            };
+
+            return View(uefaChampions);
+        }
+
+        public async Task<IActionResult> Seasons()
+        {
+            var seasons = _dbContext.Seasons.ToList();
+            return View(seasons);
+        }
+
+        public async Task<IActionResult> Leagues(string season)
+        {
+            List<SeasonLeague> leagues = new List<SeasonLeague>();
+            var ligs = _dbContext.Leagues.ToList();
+            foreach (var lig in ligs)
+            {
+                leagues.Add(new SeasonLeague()
+                {
+                    Id = lig.Id,
+                    Name = lig.Name,
+                    Logo = lig.Logo,
+                    Place = lig.Place,
+                    Season = season
+                });
+            }
+
+            return View(leagues);
+        }
+
+        public async Task<IActionResult> Games(string league, string season)
+        {
+            List<GameView> gameViews = new List<GameView>();
+            var games = _dbContext.Games.Where(g => g.Season == season && g.League == league).ToList();
+            foreach (var game in games)
+            {
+                var aLogo = _dbContext.Clubs.FirstOrDefault(c => c.Name == game.HomeClub).Logo;
+                var bLogo = _dbContext.Clubs.FirstOrDefault(c => c.Name == game.GuestClub).Logo;
+                var gameView = new GameView()
+                {
+                    Id = game.Id,
+                    HomeLogo = aLogo,
+                    GuestLogo = bLogo,
+                    HomeClub = game.HomeClub,
+                    GuestClub = game.GuestClub,
+                    League = game.League,
+                    Season = game.Season,
+                    HomeGoals = game.HomeGoals,
+                    GuestGoals = game.GuestGoals,
+                    HomeScore = game.HomeScore,
+                    GuestScore = game.GuestScore,
+                    Winner = game.Winner
+                };
+                gameViews.Add(gameView);
+            }
+
+            return View(gameViews);
+        }
+
+        public List<Club> GetForUEFA(int leagueId, string season, string league)
+        {
+            List<Results> results = new List<Results>();
+            var clubs = _dbContext.Clubs.Where(c => c.LeagueId == leagueId).ToList();
+            var modelLeague = _dbContext.Leagues.FirstOrDefault(ml => ml.Id == leagueId);
+            foreach (var club in clubs)
+            {
+                var games = _dbContext.Games.Where(g =>
+                    g.Season == season && g.League == league && (g.HomeClub == club.Name || g.GuestClub == club.Name));
+                var result = new Results()
+                {
+                    Games = 0,
+                    Wins = 0,
+                    Draws = 0,
+                    Loses = 0,
+                    ScoredGoals = 0,
+                    MissedGoals = 0,
+                    GoalDifference = 0,
+                    Score = 0,
+                    Club = club.Name,
+                    Logo = club.Logo
+                };
+                foreach (var game in games)
+                {
+                    result.Games++;
+                    if (game.Winner == club.Name)
+                    {
+                        result.Wins++;
+                        result.Score += 3;
+                    }else if (game.Winner == "Draw")
+                    {
+                        result.Draws++;
+                        result.Score++;
+                    }
+                    else
+                    {
+                        result.Loses++;
+                    }
+
+                    if (game.HomeClub == club.Name)
+                    {
+                        result.ScoredGoals += game.HomeScore;
+                        result.MissedGoals += game.GuestScore;
+                    }
+                    else if (game.GuestClub == club.Name)
+                    {
+                        result.ScoredGoals += game.GuestScore;
+                        result.MissedGoals += game.HomeScore;
+                    }
+                }
+
+                result.GoalDifference = result.ScoredGoals - result.MissedGoals;
+                results.Add(result);
+            }
+
+            for (int i = 0; i < results.Count; i++)
+            {
+                for (int j = i; j < results.Count; j++)
+                {
+                    if (results[i].Score < results[j].Score)
+                    {
+                        Results r = results[i];
+                        results[i] = results[j];
+                        results[j] = r;
+                    }else if (results[i].Score == results[j].Score)
+                    {
+                        if (results[i].ScoredGoals < results[j].ScoredGoals)
+                        {
+                            Results r = results[i];
+                            results[i] = results[j];
+                            results[j] = r;
+                        }
+                    }
+                }
+            }
+            
+            var moveClubs = new List<Club>();
+
+            for (int i = 0; i < modelLeague.Place; i++)
+            {
+                var club = _dbContext.Clubs.FirstOrDefault(c => c.Name == results[i].Club);
+                moveClubs.Add(club);
+            }
+
+            return moveClubs;
         }
     }
 }
