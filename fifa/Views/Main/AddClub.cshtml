@@ -1,0 +1,46 @@
+@page
+@using fifa.Pages
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model fifa.Views.Main.AddClub
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <form method="post" action="/Main/AddClubAction">
+        Name: <input type="text" name="Name" required/><br/>
+        Logo url: <input type="text" name="Logo" required/><br/>
+        League:<select name="LeagueId">
+            @{ int counter = 0; }
+            @foreach (var league in new List<string> {"LaLiga Santander", "Premier League", "Bundesliga", "Ligue 1 Conforama", "Serie A TIM", "Eredivisie", "Liga NOS", "Super Lig"})
+            {
+                @( counter++ )
+                <option value="@counter">@league</option>
+            }
+        </select><br/>
+        <p>Players</p>
+        @for (int i = 1; i <= 11; i++)
+        {
+            <input type="text" placeholder="Name" name="PlayerName_@i"/><br/>
+            <input type="text" placeholder="Score" name="PlayerScore_@i"/><br/>
+            <select name="PlayerPosition_@i">
+                <option value="RF">Attacker</option>
+                <option value="CAM">MiddleField</option>
+                <option value="RB">Defender</option>
+             </select>
+            <input type="text" placeholder="Number" name="PlayerNumber_@i"/><br/>
+        }
+        <hr/>
+        <button type="submit">Create</button>
+    </form>
+</div>
+</body>
+</html>

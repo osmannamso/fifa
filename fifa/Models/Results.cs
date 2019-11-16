@@ -2,6 +2,7 @@ namespace fifa.Models
 {
     public class Results
     {
+        public int? ClubId { get; set; }
         public string Club { get; set; }
         public string Logo { get; set; }
         public int Games { get; set; }

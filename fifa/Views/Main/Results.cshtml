@@ -48,10 +48,10 @@
                 @place
             </td>
             <td>
-                <img src="@Html.DisplayFor(modelItem => item.Logo)"/>
+                <img style="width: 35px" src="@Html.DisplayFor(modelItem => item.Logo)"/>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Club)
+                <a href="/Main/Club?id=@Html.DisplayFor(modelItem => item.ClubId)">@Html.DisplayFor(modelItem => item.Club)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Games)

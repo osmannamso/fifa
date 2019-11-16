@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using fifa.Data;
 using fifa.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,9 +18,67 @@ namespace fifa.Controllers
         {
             _dbContext = dbContext;
         }
+
+        public IActionResult ValidateLogo(string Logo)
+        {
+            bool result = !(Logo == "https://images-na.ssl-images-amazon.com/images/I/61NWgO5keQL._SY445_.jpg" ||
+                            Logo == "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/74/30/fd/7430fd41-956d-349f-fa2e-3e627623b6dd/pr_source.png/268x0w.jpg");
+
+            return Json(result);
+        }
         
         public IActionResult Index()
         {
+            return View();
+        }
+
+        public IActionResult AddClub()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> AddClubAction(IFormCollection data)
+        {
+            int count = _dbContext.Clubs.OrderBy(c => -c.Id).Take(1).ToList()[0].Id;
+            Console.WriteLine(count);
+            var club = new Club()
+            {
+                Id = count + 1,
+                Name = data["Name"],
+                Logo = data["Logo"],
+                LeagueId = Int32.Parse(data["LeagueId"])
+            };
+            _dbContext.Add(club);
+            _dbContext.SaveChanges();
+
+            for (int i = 1; i <= 11; i++)
+            {
+                var player = new Player()
+                {
+                    Name = data["PlayerName_" + i],
+                    Age = 22,
+                    Photo = "",
+                    Nation = "USSR",
+                    Flag = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_Soviet_Union.svg/800px-Flag_of_the_Soviet_Union.svg.png",
+                    Score = Int32.Parse(data["PlayerScore_" + i]),
+                    Position = data["PlayerPosition_" + i],
+                    Number = Int32.Parse(data["PlayerNumber_" + i]),
+                    ClubId = club.Id
+                };
+                _dbContext.Entry(player).State = EntityState.Added;
+                _dbContext.SaveChanges();
+            }
+            
+            return View();
+        }
+
+        public IActionResult DeleteClub(int ClubId)
+        {
+            var club = _dbContext.Clubs.FirstOrDefault(cc => cc.Id == ClubId);
+            _dbContext.Clubs.Attach(club);
+            _dbContext.Clubs.Remove(club);
+            _dbContext.SaveChanges();
+            
             return View();
         }
 
@@ -282,6 +341,7 @@ namespace fifa.Controllers
                     GoalDifference = 0,
                     Score = 0,
                     Club = club.Name,
+                    ClubId = club.Id,
                     Logo = club.Logo
                 };
                 foreach (var game in games)
@@ -391,7 +451,7 @@ namespace fifa.Controllers
                         Score = 0,
                         Club = club.Name,
                         Logo = club.Logo
-                    }; 
+                    };
                     var games = _dbContext.Games.Where(g => g.Season == season && g.League == season + letter && (g.HomeClub == club.Name || g.GuestClub == club.Name)).ToList();
                     foreach (var game in games)
                     {
