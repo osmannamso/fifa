@@ -7,6 +7,7 @@ namespace fifa.Data
     {
         public ClubsContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Player> Players { get; set; }
@@ -15,6 +16,7 @@ namespace fifa.Data
         public DbSet<Season> Seasons { get; set; }
         public DbSet<TopScorers> TopScorers { get; set; }
         public DbSet<TopSupport> TopSupports { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -1,0 +1,37 @@
+@page
+@model fifa.Views.Main.Register
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <input id="login" type="text" placeholder="Login"/><br/>
+    <input id="password" type="password" placeholder="Password"/><br/>
+    <button type="button" onclick="register()">Register</button>
+</div>
+</body>
+<script src="/js/jquery.js"></script>
+<script>
+    function register()
+    {
+        $login = $("#login").val();
+        $password = $("#password").val();
+        var users = [];
+        if(JSON.parse(localStorage.getItem("users"))){
+            users = JSON.parse(localStorage.getItem("users"));
+        }
+        users.push({"username": $login, "password": $password});
+        localStorage.setItem("users", JSON.stringify(users));
+        window.alert("Registered");
+        window.location.href = "/Main/Index";
+    }
+</script>
+</html>

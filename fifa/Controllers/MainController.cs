@@ -946,5 +946,20 @@ namespace fifa.Controllers
 
             return moveClubs;
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Django()
+        {
+            return View();
+        }
     }
 }

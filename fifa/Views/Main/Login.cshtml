@@ -1,0 +1,43 @@
+@page
+@model fifa.Views.Main.Login
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <h2>Login and I will surprise you!</h2>
+    <input id="login" type="text" placeholder="Login"/><br/>
+    <input id="password" type="password" placeholder="Password"/><br/>
+    <button type="button" onclick="login()">Login</button>
+</div>
+<script src="/js/jquery.js"></script>
+<script>
+    function login()
+    {
+        $login = $("#login").val();
+        $password = $("#password").val();
+        
+        var users = [];
+        if(JSON.parse(localStorage.getItem("users"))){
+            users = JSON.parse(localStorage.getItem("users"));
+        }
+        console.log(users, {"username": $login, "password": $password});
+        if(users.some(function (e) {return e.username === $login || e.password === $password})) {
+            window.alert("successful login");
+            window.alert("What, you entered pentagon?");
+            window.location.href = "/Main/Django";
+        } else {
+            window.alert("Login or Password incorrect");
+        }
+    }
+</script>
+</body>
+</html>
