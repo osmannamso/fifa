@@ -33,6 +33,7 @@
         if(users.some(function (e) {return e.username === $login || e.password === $password})) {
             window.alert("successful login");
             window.alert("What, you entered pentagon?");
+            localStorage.setItem("here", "true");
             window.location.href = "/Main/Django";
         } else {
             window.alert("Login or Password incorrect");

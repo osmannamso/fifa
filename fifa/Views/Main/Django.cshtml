@@ -13,12 +13,15 @@
 </head>
 <body>
 <div>
-    <h2>Oh, no, you reached the message that IT never reached!!!</h2>
+    <h2>Oh, no, you reached the message that no one reached!!!</h2>
     <p>The secret message in pentagon: </p>
-    <img src="/js/django.png"/><br/>
+    <img src="/js/rick.jpg" /><br/>
+    <button onclick="localStorage.removeItem('here'); window.location.href = '/Main/Index';">Leave pentagon</button>
 </div>
 <script>
-    
+    if(!localStorage.getItem('here')) {
+        window.location.href = '/Main/Index';
+    }
 </script>
 </body>
 </html>
