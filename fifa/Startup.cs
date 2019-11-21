@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using fifa.Data;
 using fifa.Models;
+using fifa.Services;
 using Microsoft.AspNetCore.Identity;
 
 namespace fifa
@@ -30,6 +31,7 @@ namespace fifa
         {
             services.AddDbContext<ClubsContext>();
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ClubsContext>();
+            services.AddScoped<MainService>();
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 

@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using fifa.Data;
 using fifa.Models;
+using fifa.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,17 +15,28 @@ namespace fifa.Controllers
     public class MainController : Controller
     {
         private readonly ClubsContext _dbContext;
-        public MainController(ClubsContext dbContext)
+        private MainService _mainService;
+        public MainController(ClubsContext dbContext, MainService mainService)
         {
             _dbContext = dbContext;
+            _mainService = mainService;
         }
 
         public IActionResult ValidateLogo(string Logo)
         {
             bool result = !(Logo == "https://images-na.ssl-images-amazon.com/images/I/61NWgO5keQL._SY445_.jpg" ||
                             Logo == "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/74/30/fd/7430fd41-956d-349f-fa2e-3e627623b6dd/pr_source.png/268x0w.jpg");
-
+            if (!result)
+            {
+                return null;
+            }
             return Json(result);
+        }
+
+        public Boolean ValidateLogoBool(string Logo)
+        {
+            return !(Logo == "https://images-na.ssl-images-amazon.com/images/I/61NWgO5keQL._SY445_.jpg" ||
+                     Logo == "https://is1-ssl.mzstatic.com/image/thumb/Video113/v4/74/30/fd/7430fd41-956d-349f-fa2e-3e627623b6dd/pr_source.png/268x0w.jpg");
         }
         
         public IActionResult Index()
