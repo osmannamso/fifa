@@ -1,18 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using fifa.Data;
-using fifa.Models;
 using fifa.Services;
-using Microsoft.AspNetCore.Identity;
 
 namespace fifa
 {
@@ -30,9 +23,16 @@ namespace fifa
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ClubsContext>();
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ClubsContext>();
             services.AddScoped<MainService>();
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.SlidingExpiration = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +48,8 @@ namespace fifa
                     name: "Default",
                     template: "{controller=Main}/{action=Index}/{id?}");
             });
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStaticFiles();
         }
     }
