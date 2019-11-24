@@ -1,5 +1,7 @@
 using System.Linq;
 using fifa.Data;
+using fifa.Migrations;
+using fifa.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fifa.Controllers
@@ -16,8 +18,10 @@ namespace fifa.Controllers
         }
 
         [HttpPost]
-        public string Login(string login, string password)
+        public string Login([FromBody]User userF)
         {
+            var login = userF.Login;
+            var password = userF.Password;
             var user = _dbContext.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
             if (user == null)
             {
