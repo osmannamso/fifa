@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using fifa.Data;
 using fifa.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace fifa
 {
@@ -24,7 +26,11 @@ namespace fifa
         {
             services.AddDbContext<ClubsContext>();
             services.AddScoped<MainService>();
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddMvc(option =>
+                {
+                    option.EnableEndpointRouting = false;
+                }
+            );
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -33,6 +39,7 @@ namespace fifa
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.SlidingExpiration = true;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

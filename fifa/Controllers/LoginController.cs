@@ -2,7 +2,10 @@ using System.Linq;
 using fifa.Data;
 using fifa.Migrations;
 using fifa.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace fifa.Controllers
 {
@@ -28,6 +31,13 @@ namespace fifa.Controllers
                 return "Password or Login incorrect";
             }
             return user.Token;
+        }
+        [HttpGet]
+        [CheckHeader]
+        public string GetLogin(string token)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Token == token);
+            return user.Login;
         }
     }
 }

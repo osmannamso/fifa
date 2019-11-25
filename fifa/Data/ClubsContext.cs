@@ -10,6 +10,10 @@ namespace fifa.Data
             Database.EnsureCreated();
         }
 
+        public ClubsContext()
+        {
+        }
+
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Game> Games { get; set; }
