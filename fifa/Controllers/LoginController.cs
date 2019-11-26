@@ -1,11 +1,7 @@
 using System.Linq;
 using fifa.Data;
-using fifa.Migrations;
 using fifa.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace fifa.Controllers
 {

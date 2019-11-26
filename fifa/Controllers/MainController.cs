@@ -33,6 +33,11 @@ namespace fifa.Controllers
             return Json(result);
         }
 
+        public int Zero()
+        {
+            return 0;
+        }
+
         public Boolean ValidateLogoBool(string Logo)
         {
             return !(Logo == "https://images-na.ssl-images-amazon.com/images/I/61NWgO5keQL._SY445_.jpg" ||

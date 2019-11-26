@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using fifa.Data;
 using fifa.Models;
 using Microsoft.AspNetCore.Mvc;
