@@ -33,7 +33,7 @@ namespace fifa.Controllers
             return user.Token;
         }
         [HttpGet]
-        [CheckHeader]
+        [CheckHeaderFilter]
         public string GetLogin(string token)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Token == token);

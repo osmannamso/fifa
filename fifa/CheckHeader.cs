@@ -1,29 +1,37 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using fifa.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace fifa
 {
-    public class CheckHeader : Attribute
+    public class CheckHeaderFilter : Attribute, IResourceFilter
     {
-        public CheckHeader()
+        public void OnResourceExecuting(ResourceExecutingContext context)
         {
-            
-        }
-        protected bool AuthorizeCore(HttpContext httpContext)
-        {
-            ClubsContext dbContext = new ClubsContext();
-            // Get the headers
-            var headers = httpContext.Request.Headers;
-            // Do some checks (not sure what your wanting to do)
-            var user = dbContext.Users.FirstOrDefault(u => u.Token == headers["token"]);
-            if (user != null)
+            string token = context.HttpContext.Request.Headers["token"];
+            if (token == null)
             {
-                return true;
+                throw new Exception("Necessary HTTP headers not present!");
             }
-            return false;
+
+            ClubsContext dbContext = new ClubsContext();
+            var user = dbContext.Users.FirstOrDefault(u => u.Token == token);
+            if (user == null)
+            {
+                throw new Exception("Incorrect token or expired!");
+            }
+        }
+
+        public void OnResourceExecuted(ResourceExecutedContext context)
+        {
+
         }
     }
 }
