@@ -22,6 +22,10 @@ namespace fifa
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();  
+            services.AddSession(options => {  
+                options.IdleTimeout = TimeSpan.FromMinutes(3600);//You can set Time   
+            });
             services.AddDbContext<ClubsContext>();
             services.AddScoped<MainService>();
             services.AddMvc(option =>
@@ -47,6 +51,8 @@ namespace fifa
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -56,6 +62,7 @@ namespace fifa
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
         }
     }
 }

@@ -22,22 +22,29 @@
 <script>
     function login()
     {
-        $login = $("#login").val();
-        $password = $("#password").val();
+        const login = $("#login").val();
+        const password = $("#password").val();
         
-        var users = [];
-        if(JSON.parse(localStorage.getItem("users"))){
-            users = JSON.parse(localStorage.getItem("users"));
-        }
-        console.log(users, {"username": $login, "password": $password});
-        if(users.some(function (e) {return e.username === $login || e.password === $password})) {
-            window.alert("successful login");
-            window.alert("What, you entered pentagon?");
-            localStorage.setItem("here", "true");
-            window.location.href = "/Main/Django";
-        } else {
-            window.alert("Login or Password incorrect");
-        }
+        $.ajax({
+          type: "POST",
+          url: `http://localhost:5001/api/login`,
+          headers: {
+              'Content-Type':'application/json; charset=utf-8'
+          },
+          data: JSON.stringify({
+              Login: login,
+              Password: password
+          }),
+          processData: false,
+          success: function(msg) {
+            if (msg === 'No') {
+                window.alert("No bro no enter here for you");
+            } else {
+                localStorage.setItem("token", msg);
+                window.location.href = "/Main/Django";
+            }
+          }
+        });
     }
 </script>
 </body>

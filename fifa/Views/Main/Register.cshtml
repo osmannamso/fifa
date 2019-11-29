@@ -22,16 +22,27 @@
 <script>
     function register()
     {
-        $login = $("#login").val();
-        $password = $("#password").val();
-        var users = [];
-        if(JSON.parse(localStorage.getItem("users"))){
-            users = JSON.parse(localStorage.getItem("users"));
-        }
-        users.push({"username": $login, "password": $password});
-        localStorage.setItem("users", JSON.stringify(users));
-        window.alert("Registered");
-        window.location.href = "/Main/Index";
+        const login = $("#login").val();
+        const password = $("#password").val();
+
+        $.ajax({
+          type: "POST",
+          url: `http://localhost:5001/api/registration`,
+          headers: {
+              'Content-Type':'application/json; charset=utf-8'
+          },
+          data: JSON.stringify({
+              Login: login,
+              Password: password
+          }),
+          processData: false,
+          success: function(msg) {
+            if (msg === 'Done') {
+                window.alert("Registered! Never speak about fight club first rule!");
+                window.location.href = "/Main/Index";
+            }
+          }
+        });
     }
 </script>
 </html>

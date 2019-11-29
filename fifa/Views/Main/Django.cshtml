@@ -16,11 +16,50 @@
     <h2>Oh, no, you reached the message that no one reached!!!</h2>
     <p>The secret message in pentagon: </p>
     <img src="/js/rick.jpg" /><br/>
-    <button onclick="localStorage.removeItem('here'); window.location.href = '/Main/Index';">Leave pentagon</button>
+    <button onclick="localStorage.removeItem('token'); window.location.href = '/Main/Index';">Leave pentagon</button><br />
+    <button onclick="showFav()">Show me my favourite club</button>
+    <p id="club"></p>
 </div>
 <script>
-    if(!localStorage.getItem('here')) {
+    if(!localStorage.getItem('token')) {
         window.location.href = '/Main/Login';
+    }
+</script>
+<script src="/js/jquery.js"></script>
+<script>
+    function login() {
+        const login = $("#login").val();
+        const password = $("#password").val();
+        
+        $.ajax({
+          type: "POST",
+          url: `http://localhost:5001/api/login`,
+          headers: {
+              'Content-Type':'application/json; charset=utf-8'
+          },
+          data: JSON.stringify({
+              Login: login,
+              Password: password
+          }),
+          processData: false,
+          success: function(msg) {
+            if (msg === 'No') {
+                window.alert("No bro no enter here for you");
+            } else {
+                localStorage.setItem("token", msg);
+                window.location.href = "/Main/Django";
+            }
+          }
+        });
+    }
+    function showFav() {
+        $.ajax({
+            url: `http://localhost:5001/api/club/get`,
+            headers: {"token": localStorage.getItem("token")},
+            success: (data) => {
+                $('#club').html(data);
+            }
+        });
     }
 </script>
 </body>

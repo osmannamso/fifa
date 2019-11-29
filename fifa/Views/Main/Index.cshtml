@@ -16,7 +16,28 @@
     <a href="/Main/Clubs?page=1">Clubs</a>
     <a href="/Main/Seasons">Seasons</a>
     <a href="/Main/Login">Login</a>
-    <a href="/Main/Register">Register</a>
+    <a href="/Main/Register">Register</a><br />
+    <h2>Choose your favourtite club</h2>
+    <input type="text" id="club" onkeyup="getClubs()" />
+    <div id="clubs"></div>
 </div>
+<script src="/js/jquery.js"></script>
+<script>
+    function getClubs() {
+        const name = $('#club').val();
+        $.get(`http://localhost:5001/api/club/${name}`, (data) => {
+            let items = '';
+            data.forEach((club) => {
+                items += `<button onclick="setFav('${club.name}')">${club.name}</button><br />`;
+            });
+            $('#clubs').html(items);
+        });
+    }
+    function setFav(name) {
+        $.get(`http://localhost:5001/api/club/set/${name}`, () => {
+            window.alert(`${name} is your favourite club`);
+        });
+    }
+</script>
 </body>
 </html>

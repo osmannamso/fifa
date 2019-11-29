@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using fifa.Data;
 using fifa.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fifa.Controllers
@@ -16,12 +19,29 @@ namespace fifa.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet("{id}")]
-        public Club GetById(int id)
+        [HttpGet("{name}")]
+        public IEnumerable<Club> Search(string name)
         {
-            Club club = _dbContext.Clubs.FirstOrDefault(c => c.Id == id);
+            var clubs = _dbContext.Clubs.Where(c => c.Name.StartsWith(name)).Take(10);
+
+            return clubs;
+        }
+        
+        [HttpGet("set/{club}")]
+        public String SetClub(string club)
+        {
+            HttpContext.Session.SetString("Club", club);
 
             return club;
+        }
+
+        [CheckHeaderFilter]
+        [HttpGet("get/")]
+        public String GetClub()
+        {
+            Console.WriteLine("ASDASD");
+            Console.WriteLine(HttpContext.Session.GetString("Club"));
+            return HttpContext.Session.GetString("Club");
         }
     }
 }
