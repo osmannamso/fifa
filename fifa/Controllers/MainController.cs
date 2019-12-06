@@ -89,6 +89,11 @@ namespace fifa.Controllers
             return View();
         }
 
+        public IActionResult ChatRoom()
+        {
+            return View();
+        }
+
         public IActionResult DeleteClub(int ClubId)
         {
             var club = _dbContext.Clubs.FirstOrDefault(cc => cc.Id == ClubId);

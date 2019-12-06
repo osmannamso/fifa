@@ -41,6 +41,7 @@ namespace fifa
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.SlidingExpiration = true;
             });
+            services.AddSignalR();
 
         }
 
@@ -63,6 +64,10 @@ namespace fifa
             app.UseAuthorization();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Chat>("/chat");
+            });
         }
     }
 }
