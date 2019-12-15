@@ -39,9 +39,12 @@ namespace fifa.Controllers
         [HttpGet("get/")]
         public String GetClub()
         {
-            Console.WriteLine("ASDASD");
-            Console.WriteLine(HttpContext.Session.GetString("Club"));
-            return HttpContext.Session.GetString("Club");
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Club")))
+            {
+                return HttpContext.Session.GetString("Club");
+            }
+
+            return "No Club selected";
         }
     }
 }

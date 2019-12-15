@@ -15,11 +15,9 @@ namespace fifa.Controllers
     public class MainController : Controller
     {
         private readonly ClubsContext _dbContext;
-        private MainService _mainService;
-        public MainController(ClubsContext dbContext, MainService mainService)
+        public MainController(ClubsContext dbContext)
         {
             _dbContext = dbContext;
-            _mainService = mainService;
         }
 
         public IActionResult ValidateLogo(string Logo)
@@ -342,6 +340,11 @@ namespace fifa.Controllers
             {
                 LeaguePlay(league, season);
             }
+        }
+
+        public async Task<IActionResult> OnlineChat()
+        {
+            return View();
         }
         
         public async Task<IActionResult> Results(string league, string season, int leagueId)

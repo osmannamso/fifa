@@ -56,9 +56,7 @@ namespace fifa
             app.UseSession();
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "Default",
-                    template: "{controller=Main}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Main}/{action=Index}");
             });
             app.UseAuthentication();
             app.UseAuthorization();

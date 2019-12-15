@@ -10,9 +10,11 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
 </head>
 <body>
-<div>
+<div class="login-block">
+    <h2>Register your account</h2>
     <input id="login" type="text" placeholder="Login"/><br/>
     <input id="password" type="password" placeholder="Password"/><br/>
     <button type="button" onclick="register()">Register</button>
@@ -39,7 +41,7 @@
           success: function(msg) {
             if (msg === 'Done') {
                 window.alert("Registered! Never speak about fight club first rule!");
-                window.location.href = "/Main/Index";
+                window.location.href = "/Main/Login";
             }
           }
         });

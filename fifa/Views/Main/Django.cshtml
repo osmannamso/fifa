@@ -9,59 +9,39 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
 </head>
 <body>
-<div>
-    <h2>Oh, no, you reached the message that no one reached!!!</h2>
-    <p>The secret message in pentagon: </p>
-    <img src="/js/rick.jpg" /><br/>
-    <button onclick="localStorage.removeItem('token'); window.location.href = '/Main/Index';">Leave pentagon</button><br />
-    <button onclick="showFav()">Show me my favourite club</button>
-    <p id="club"></p>
-</div>
-<h2>Anonymus chat because Durov odobraet</h2>
-<div id="chat">
-    <form id="frm-send-message" action="#">
-        <label for="message">Message:</label>
-        <input type="text" id="message" />
-        <input type="submit" id="send" value="Send" />
-    </form>
-    <div class="clear">
+<div class="main-block">
+    <div class="header-menu">
+        <a class="item active" href="/Main/Django">Home</a>
+        <a class="item" href="/Main/Clubs?page=1">Clubs</a>
+        <a class="item" href="/Main/OnlineChat">Online Chat</a>
+        <a class="item" href="/Main/Seasons">Seasons</a>
+        <a class="item cursor-pointer" onclick="localStorage.removeItem('token'); window.location.href = '/Main/Index'">Logout</a>
     </div>
-    <ul id="messages"></ul>
+    <div class="content-menu">
+        <div class="item big first">
+            <h2>Kick Off</h2>
+            <p>Play a game with any two teams on<br/> some of the greatest pitches.</p>
+        </div>
+        <div class="item big second">
+            <h2>The Journey</h2>
+            <p>Play as the premier league's best<br/> rising star, alex hunter.<br/> choose your club, make your name.</p>
+        </div>
+        <div class="item small">
+            <h2 onclick="testCall('Career Mode')">Career mode</h2>
+            <p>Make your name</p>
+        </div>
+        <div class="item small">
+            <h2 onclick="showFav()" class="cursor-pointer">Show me my favourite club</h2>
+            <p id="club"></p>
+        </div>
+    </div>
 </div>
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script>
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("/chat")
-        .build();
- 
-    connection.start().catch(err => console.error(err.toString()));
- 
-    connection.on('Send', (message) => {
-        appendLine(message);
-    });
- 
-    document.getElementById('frm-send-message').addEventListener('submit', event => {
-        let message = document.getElementById('message').value;
-        document.getElementById('message').value = '';
- 
-        connection.invoke('Send', message);
-        event.preventDefault();
-    });
- 
-    function appendLine(line, color) {
-        let li = document.createElement('li');
-        li.innerText = line;
-        document.getElementById('messages').appendChild(li);
-    };
-</script>
-<script>
-    if(!localStorage.getItem('token')) {
-        window.location.href = '/Main/Login';
-    }
-</script>
+<script src="/js/signalr/dist/browser/signalr.js"></script>
+<script src="/js/main.js"></script>
 <script src="/js/jquery.js"></script>
 <script>
     function login() {

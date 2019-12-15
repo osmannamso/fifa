@@ -1,0 +1,135 @@
+* {
+    font-family: monospace;
+}
+
+body {
+    background-size: cover;
+    background: url('../images/background.jpeg') no-repeat;
+}
+
+.main-block {
+    width: 1000px;
+    margin: 100px auto auto;
+}
+
+.header-menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header-menu .item {
+    flex: 0 5px 0;
+    display: block;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 20px;
+    background: #000000;
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.header-menu .item.active {
+    background: #ffff00;
+    color: #000000;
+}
+
+.header-menu .item:not(:first-child) {
+    border-left: 1px solid #ffff00;
+}
+
+.content-menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1000px;
+    margin-top: 10px;
+}
+
+.content-menu .item {
+    flex: 1 0 48%;
+    margin: 4px;
+    padding-left: 10px;
+}
+
+.content-menu .item.big.first {
+    background: url(../images/first.jpg);
+    color: #000000;
+    height: 300px;
+    background-size: cover;
+}
+
+.content-menu .item.big.first h2 {
+    background: #ffff00;
+    display: inline-block;
+}
+
+.content-menu .item.big.second {
+    background: #000000;
+    color: #ffff00;
+}
+
+.content-menu .item.small {
+    background: #000000;
+    color: #ffff00;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.chat-block {
+    background: #000000;
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+    color: #ffff00;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.content-menu  hr{
+    color: #ffff00;
+}
+
+.login-block {
+    background: #000000;
+    color: #ffff00;
+    width: 300px;
+    padding: 10px 30px 30px 30px;
+    margin: 200px auto auto;
+}
+
+.login-block a {
+    color: #ffff00;
+}
+
+.clubs-block {
+    color: #ffff00;
+    width: 100%;
+    background: #000000;
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: scroll;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.clubs-block a {
+    color: #ffff00;
+    width: 100%;
+}
+
+.club-block {
+    color: #ffff00;
+    width: 100%;
+    background: #000000;
+    height: 800px;
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
+.play-season {
+    text-decoration: underline;
+}

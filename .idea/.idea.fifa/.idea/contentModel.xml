@@ -1,19 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="$USER_HOME$/.Rider2019.2/system/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.Rider2019.2/system/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_fifa.-58950194.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_fifa.-58950194.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="fifa" t="IncludeRecursive">
         <e p="App.razor" t="Include" />
+        <e p="Chat.cs" t="Include" />
+        <e p="CheckHeader.cs" t="Include" />
+        <e p="Controllers" t="Include">
+          <e p="ClubController.cs" t="Include" />
+          <e p="LoginController.cs" t="Include" />
+          <e p="MainController.cs" t="Include" />
+          <e p="RegistrationController.cs" t="Include" />
+        </e>
         <e p="Data" t="Include">
-          <e p="WeatherForecast.cs" t="Include" />
-          <e p="WeatherForecastService.cs" t="Include" />
+          <e p="ClubsContext.cs" t="Include" />
+        </e>
+        <e p="Migrations" t="Include">
+          <e p="20191026083038_first.Designer.cs" t="Include" />
+          <e p="20191026083038_first.cs" t="Include" />
+          <e p="20191026085909_second.Designer.cs" t="Include" />
+          <e p="20191026085909_second.cs" t="Include" />
+          <e p="20191027113232_third.Designer.cs" t="Include" />
+          <e p="20191027113232_third.cs" t="Include" />
+          <e p="20191027113812_fourth.Designer.cs" t="Include" />
+          <e p="20191027113812_fourth.cs" t="Include" />
+          <e p="20191027114554_six.Designer.cs" t="Include" />
+          <e p="20191027114554_six.cs" t="Include" />
+          <e p="20191027141947_seven.Designer.cs" t="Include" />
+          <e p="20191027141947_seven.cs" t="Include" />
+          <e p="20191027142631_eight.Designer.cs" t="Include" />
+          <e p="20191027142631_eight.cs" t="Include" />
+          <e p="20191027143154_nine.Designer.cs" t="Include" />
+          <e p="20191027143154_nine.cs" t="Include" />
+          <e p="20191031182725_ten.Designer.cs" t="Include" />
+          <e p="20191031182725_ten.cs" t="Include" />
+          <e p="20191120162106_identityfirst.Designer.cs" t="Include" />
+          <e p="20191120162106_identityfirst.cs" t="Include" />
+          <e p="20191124165318_login.Designer.cs" t="Include" />
+          <e p="20191124165318_login.cs" t="Include" />
+          <e p="ClubsContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="Club.cs" t="Include" />
+          <e p="Game.cs" t="Include" />
+          <e p="GameView.cs" t="Include" />
+          <e p="Group.cs" t="Include" />
+          <e p="League.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="Results.cs" t="Include" />
+          <e p="Season.cs" t="Include" />
+          <e p="SeasonLeague.cs" t="Include" />
+          <e p="TopScorers.cs" t="Include" />
+          <e p="TopScorersView.cs" t="Include" />
+          <e p="TopSupport.cs" t="Include" />
+          <e p="UefaChampions.cs" t="Include" />
+          <e p="User.cs" t="Include" />
         </e>
         <e p="Pages" t="Include">
           <e p="Counter.razor" t="Include" />
           <e p="Error.razor" t="Include" />
-          <e p="FetchData.razor" t="Include" />
           <e p="Index.razor" t="Include" />
           <e p="_Host.cshtml" t="Include" />
         </e>
@@ -21,11 +68,61 @@
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
+        <e p="SecurePasswordHasher.cs" t="Include" />
+        <e p="Services" t="Include">
+          <e p="MainService.cs" t="Include" />
+        </e>
         <e p="Shared" t="Include">
-          <e p="MainLayout.razor" t="Include" />
-          <e p="NavMenu.razor" t="Include" />
+          <e p="PlayersOfClub.cshtml" t="Include" />
+          <e p="PlayersOfClub.cshtml.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
+        <e p="ViewModels" t="Include">
+          <e p="LoginViewModel.cs" t="Include" />
+          <e p="RegisterViewModel.cs" t="Include" />
+        </e>
+        <e p="Views" t="Include">
+          <e p="Main" t="Include">
+            <e p="AddClub.cshtml" t="Include" />
+            <e p="AddClub.cshtml.cs" t="Include" />
+            <e p="AddClubAction.cshtml" t="Include" />
+            <e p="AddClubAction.cshtml.cs" t="Include" />
+            <e p="Bombardiers.cshtml" t="Include" />
+            <e p="Bombardiers.cshtml.cs" t="Include" />
+            <e p="ChatRoom.cshtml" t="Include" />
+            <e p="ChatRoom.cshtml.cs" t="Include" />
+            <e p="Club.cshtml" t="Include" />
+            <e p="Club.cshtml.cs" t="Include" />
+            <e p="Clubs.cshtml" t="Include" />
+            <e p="Clubs.cshtml.cs" t="Include" />
+            <e p="DeleteClub.cshtml" t="Include" />
+            <e p="DeleteClub.cshtml.cs" t="Include" />
+            <e p="Django.cshtml" t="Include" />
+            <e p="Django.cshtml.cs" t="Include" />
+            <e p="Games.cshtml" t="Include" />
+            <e p="Games.cshtml.cs" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Index.cshtml.cs" t="Include" />
+            <e p="Leagues.cshtml" t="Include" />
+            <e p="Leagues.cshtml.cs" t="Include" />
+            <e p="Login.cshtml" t="Include" />
+            <e p="Login.cshtml.cs" t="Include" />
+            <e p="OnlineChat.cshtml" t="Include" />
+            <e p="OnlineChat.cshtml.cs" t="Include" />
+            <e p="PlaySeason.cshtml" t="Include" />
+            <e p="PlaySeason.cshtml.cs" t="Include" />
+            <e p="Players.cshtml" t="Include" />
+            <e p="Players.cshtml.cs" t="Include" />
+            <e p="Register.cshtml" t="Include" />
+            <e p="Register.cshtml.cs" t="Include" />
+            <e p="Results.cshtml" t="Include" />
+            <e p="Results.cshtml.cs" t="Include" />
+            <e p="Seasons.cshtml" t="Include" />
+            <e p="Seasons.cshtml.cs" t="Include" />
+            <e p="UefaChampionsPlay.cshtml" t="Include" />
+            <e p="UefaChampionsPlay.cshtml.cs" t="Include" />
+          </e>
+        </e>
         <e p="_Imports.razor" t="Include" />
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
@@ -34,16 +131,29 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
+              <e p="RazorDeclaration" t="Include">
+                <e p="App.razor.g.cs" t="Include" />
+                <e p="Pages" t="Include">
+                  <e p="Counter.razor.g.cs" t="Include" />
+                  <e p="Error.razor.g.cs" t="Include" />
+                  <e p="Index.razor.g.cs" t="Include" />
+                </e>
+                <e p="_Imports.razor.g.cs" t="Include" />
+              </e>
               <e p="fifa.AssemblyInfo.cs" t="Include" />
+              <e p="fifa.RazorAssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
+        <e p="package-lock.json" t="Include" />
+        <e p="tests" t="Include" />
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
             <e p="bootstrap" t="Include">
               <e p="bootstrap.min.css" t="Include" />
               <e p="bootstrap.min.css.map" t="Include" />
             </e>
+            <e p="main.css" t="Include" />
             <e p="open-iconic" t="Include">
               <e p="FONT-LICENSE" t="Include" />
               <e p="ICON-LICENSE" t="Include" />
@@ -64,6 +174,196 @@
             <e p="site.css" t="Include" />
           </e>
           <e p="favicon.ico" t="Include" />
+          <e p="images" t="Include">
+            <e p="background.jpeg" t="Include" />
+            <e p="first.jpg" t="Include" />
+          </e>
+          <e p="js" t="Include">
+            <e p="jquery.js" t="Include" />
+            <e p="main.js" t="Include" />
+            <e p="rick.jpg" t="Include" />
+            <e p="signalr" t="Include">
+              <e p="README.md" t="Include" />
+              <e p="dist" t="Include">
+                <e p="browser" t="Include">
+                  <e p="signalr.js" t="Include" />
+                  <e p="signalr.js.map" t="Include" />
+                  <e p="signalr.min.js" t="Include" />
+                  <e p="signalr.min.js.map" t="Include" />
+                </e>
+                <e p="cjs" t="Include">
+                  <e p="AbortController.js" t="Include" />
+                  <e p="AbortController.js.map" t="Include" />
+                  <e p="DefaultHttpClient.js" t="Include" />
+                  <e p="DefaultHttpClient.js.map" t="Include" />
+                  <e p="EmptyNodeHttpClient.js" t="Include" />
+                  <e p="EmptyNodeHttpClient.js.map" t="Include" />
+                  <e p="Errors.js" t="Include" />
+                  <e p="Errors.js.map" t="Include" />
+                  <e p="HandshakeProtocol.js" t="Include" />
+                  <e p="HandshakeProtocol.js.map" t="Include" />
+                  <e p="HttpClient.js" t="Include" />
+                  <e p="HttpClient.js.map" t="Include" />
+                  <e p="HttpConnection.js" t="Include" />
+                  <e p="HttpConnection.js.map" t="Include" />
+                  <e p="HubConnection.js" t="Include" />
+                  <e p="HubConnection.js.map" t="Include" />
+                  <e p="HubConnectionBuilder.js" t="Include" />
+                  <e p="HubConnectionBuilder.js.map" t="Include" />
+                  <e p="IConnection.js" t="Include" />
+                  <e p="IConnection.js.map" t="Include" />
+                  <e p="IHttpConnectionOptions.js" t="Include" />
+                  <e p="IHttpConnectionOptions.js.map" t="Include" />
+                  <e p="IHubProtocol.js" t="Include" />
+                  <e p="IHubProtocol.js.map" t="Include" />
+                  <e p="ILogger.js" t="Include" />
+                  <e p="ILogger.js.map" t="Include" />
+                  <e p="ITransport.js" t="Include" />
+                  <e p="ITransport.js.map" t="Include" />
+                  <e p="JsonHubProtocol.js" t="Include" />
+                  <e p="JsonHubProtocol.js.map" t="Include" />
+                  <e p="Loggers.js" t="Include" />
+                  <e p="Loggers.js.map" t="Include" />
+                  <e p="LongPollingTransport.js" t="Include" />
+                  <e p="LongPollingTransport.js.map" t="Include" />
+                  <e p="NodeHttpClient.js" t="Include" />
+                  <e p="NodeHttpClient.js.map" t="Include" />
+                  <e p="Polyfills.js" t="Include" />
+                  <e p="Polyfills.js.map" t="Include" />
+                  <e p="ServerSentEventsTransport.js" t="Include" />
+                  <e p="ServerSentEventsTransport.js.map" t="Include" />
+                  <e p="Stream.js" t="Include" />
+                  <e p="Stream.js.map" t="Include" />
+                  <e p="TextMessageFormat.js" t="Include" />
+                  <e p="TextMessageFormat.js.map" t="Include" />
+                  <e p="Utils.js" t="Include" />
+                  <e p="Utils.js.map" t="Include" />
+                  <e p="WebSocketTransport.js" t="Include" />
+                  <e p="WebSocketTransport.js.map" t="Include" />
+                  <e p="XhrHttpClient.js" t="Include" />
+                  <e p="XhrHttpClient.js.map" t="Include" />
+                  <e p="browser-index.js" t="Include" />
+                  <e p="browser-index.js.map" t="Include" />
+                  <e p="index.js" t="Include" />
+                  <e p="index.js.map" t="Include" />
+                </e>
+                <e p="esm" t="Include">
+                  <e p="AbortController.d.ts" t="Include" />
+                  <e p="AbortController.js" t="Include" />
+                  <e p="AbortController.js.map" t="Include" />
+                  <e p="DefaultHttpClient.d.ts" t="Include" />
+                  <e p="DefaultHttpClient.js" t="Include" />
+                  <e p="DefaultHttpClient.js.map" t="Include" />
+                  <e p="EmptyNodeHttpClient.d.ts" t="Include" />
+                  <e p="EmptyNodeHttpClient.js" t="Include" />
+                  <e p="EmptyNodeHttpClient.js.map" t="Include" />
+                  <e p="Errors.d.ts" t="Include" />
+                  <e p="Errors.js" t="Include" />
+                  <e p="Errors.js.map" t="Include" />
+                  <e p="HandshakeProtocol.d.ts" t="Include" />
+                  <e p="HandshakeProtocol.js" t="Include" />
+                  <e p="HandshakeProtocol.js.map" t="Include" />
+                  <e p="HttpClient.d.ts" t="Include" />
+                  <e p="HttpClient.js" t="Include" />
+                  <e p="HttpClient.js.map" t="Include" />
+                  <e p="HttpConnection.d.ts" t="Include" />
+                  <e p="HttpConnection.js" t="Include" />
+                  <e p="HttpConnection.js.map" t="Include" />
+                  <e p="HubConnection.d.ts" t="Include" />
+                  <e p="HubConnection.js" t="Include" />
+                  <e p="HubConnection.js.map" t="Include" />
+                  <e p="HubConnectionBuilder.d.ts" t="Include" />
+                  <e p="HubConnectionBuilder.js" t="Include" />
+                  <e p="HubConnectionBuilder.js.map" t="Include" />
+                  <e p="IConnection.d.ts" t="Include" />
+                  <e p="IConnection.js" t="Include" />
+                  <e p="IConnection.js.map" t="Include" />
+                  <e p="IHttpConnectionOptions.d.ts" t="Include" />
+                  <e p="IHttpConnectionOptions.js" t="Include" />
+                  <e p="IHttpConnectionOptions.js.map" t="Include" />
+                  <e p="IHubProtocol.d.ts" t="Include" />
+                  <e p="IHubProtocol.js" t="Include" />
+                  <e p="IHubProtocol.js.map" t="Include" />
+                  <e p="ILogger.d.ts" t="Include" />
+                  <e p="ILogger.js" t="Include" />
+                  <e p="ILogger.js.map" t="Include" />
+                  <e p="ITransport.d.ts" t="Include" />
+                  <e p="ITransport.js" t="Include" />
+                  <e p="ITransport.js.map" t="Include" />
+                  <e p="JsonHubProtocol.d.ts" t="Include" />
+                  <e p="JsonHubProtocol.js" t="Include" />
+                  <e p="JsonHubProtocol.js.map" t="Include" />
+                  <e p="Loggers.d.ts" t="Include" />
+                  <e p="Loggers.js" t="Include" />
+                  <e p="Loggers.js.map" t="Include" />
+                  <e p="LongPollingTransport.d.ts" t="Include" />
+                  <e p="LongPollingTransport.js" t="Include" />
+                  <e p="LongPollingTransport.js.map" t="Include" />
+                  <e p="NodeHttpClient.d.ts" t="Include" />
+                  <e p="NodeHttpClient.js" t="Include" />
+                  <e p="NodeHttpClient.js.map" t="Include" />
+                  <e p="Polyfills.d.ts" t="Include" />
+                  <e p="Polyfills.js" t="Include" />
+                  <e p="Polyfills.js.map" t="Include" />
+                  <e p="ServerSentEventsTransport.d.ts" t="Include" />
+                  <e p="ServerSentEventsTransport.js" t="Include" />
+                  <e p="ServerSentEventsTransport.js.map" t="Include" />
+                  <e p="Stream.d.ts" t="Include" />
+                  <e p="Stream.js" t="Include" />
+                  <e p="Stream.js.map" t="Include" />
+                  <e p="TextMessageFormat.d.ts" t="Include" />
+                  <e p="TextMessageFormat.js" t="Include" />
+                  <e p="TextMessageFormat.js.map" t="Include" />
+                  <e p="Utils.d.ts" t="Include" />
+                  <e p="Utils.js" t="Include" />
+                  <e p="Utils.js.map" t="Include" />
+                  <e p="WebSocketTransport.d.ts" t="Include" />
+                  <e p="WebSocketTransport.js" t="Include" />
+                  <e p="WebSocketTransport.js.map" t="Include" />
+                  <e p="XhrHttpClient.d.ts" t="Include" />
+                  <e p="XhrHttpClient.js" t="Include" />
+                  <e p="XhrHttpClient.js.map" t="Include" />
+                  <e p="browser-index.d.ts" t="Include" />
+                  <e p="browser-index.js" t="Include" />
+                  <e p="browser-index.js.map" t="Include" />
+                  <e p="index.d.ts" t="Include" />
+                  <e p="index.js" t="Include" />
+                  <e p="index.js.map" t="Include" />
+                </e>
+              </e>
+              <e p="package.json" t="Include" />
+              <e p="src" t="Include">
+                <e p="AbortController.ts" t="Include" />
+                <e p="DefaultHttpClient.ts" t="Include" />
+                <e p="EmptyNodeHttpClient.ts" t="Include" />
+                <e p="Errors.ts" t="Include" />
+                <e p="HandshakeProtocol.ts" t="Include" />
+                <e p="HttpClient.ts" t="Include" />
+                <e p="HttpConnection.ts" t="Include" />
+                <e p="HubConnection.ts" t="Include" />
+                <e p="HubConnectionBuilder.ts" t="Include" />
+                <e p="IConnection.ts" t="Include" />
+                <e p="IHttpConnectionOptions.ts" t="Include" />
+                <e p="IHubProtocol.ts" t="Include" />
+                <e p="ILogger.ts" t="Include" />
+                <e p="ITransport.ts" t="Include" />
+                <e p="JsonHubProtocol.ts" t="Include" />
+                <e p="Loggers.ts" t="Include" />
+                <e p="LongPollingTransport.ts" t="Include" />
+                <e p="NodeHttpClient.ts" t="Include" />
+                <e p="Polyfills.ts" t="Include" />
+                <e p="ServerSentEventsTransport.ts" t="Include" />
+                <e p="Stream.ts" t="Include" />
+                <e p="TextMessageFormat.ts" t="Include" />
+                <e p="Utils.ts" t="Include" />
+                <e p="WebSocketTransport.ts" t="Include" />
+                <e p="XhrHttpClient.ts" t="Include" />
+                <e p="browser-index.ts" t="Include" />
+                <e p="index.ts" t="Include" />
+                <e p="third-party-notices.txt" t="Include" />
+              </e>
+            </e>
+          </e>
         </e>
       </e>
       <e p="fifa.sln" t="IncludeFlat" />

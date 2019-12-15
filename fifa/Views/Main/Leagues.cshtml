@@ -9,56 +9,70 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
 </head>
 <body>
-<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Place)
-        </th>
-        <th>
-            Top Scorers
-        </th>
-        <th>
-            Games
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                <a href="Results?season=@Html.DisplayFor(modelItem => item.Season)&league=@Html.DisplayFor(modelItem => item.Name)&leagueId=@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Name)</a>
-            </td>
-            <td>
-                <img style="width: 100px;" src="@Html.DisplayFor(modelItem => item.Logo)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Place)
-            </td>
-            <td>
-                <a href="Bombardiers?season=@Html.DisplayFor(modelItem => item.Season)&league=@Html.DisplayFor(modelItem => item.Name)">Top scorers</a>
-            </td>
-            <td>
-                <a href="Games?season=@Html.DisplayFor(modelItem => item.Season)&league=@Html.DisplayFor(modelItem => item.Name)">Games</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="main-block">
+    <div class="header-menu">
+        <a class="item" href="/Main/Django">Home</a>
+        <a class="item" href="/Main/Clubs?page=1">Clubs</a>
+        <a class="item" href="/Main/OnlineChat">Online Chat</a>
+        <a class="item active" href="/Main/Seasons">Seasons</a>
+        <a class="item cursor-pointer" onclick="localStorage.removeItem('token'); window.location.href = '/Main/Index'">Logout</a>
+    </div>
+    <div class="content-menu">
+        <div class="clubs-block">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Logo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Place)
+                    </th>
+                    <th>
+                        Top Scorers
+                    </th>
+                    <th>
+                        Games
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <a href="Results?season=@Html.DisplayFor(modelItem => item.Season)&league=@Html.DisplayFor(modelItem => item.Name)&leagueId=@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Name)</a>
+                        </td>
+                        <td>
+                            <img style="width: 100px;" src="@Html.DisplayFor(modelItem => item.Logo)"/>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Place)
+                        </td>
+                        <td>
+                            <a href="Bombardiers?season=@Html.DisplayFor(modelItem => item.Season)&league=@Html.DisplayFor(modelItem => item.Name)">Top scorers</a>
+                        </td>
+                        <td>
+                            <a href="Games?season=@Html.DisplayFor(modelItem => item.Season)&league=@Html.DisplayFor(modelItem => item.Name)">Games</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
