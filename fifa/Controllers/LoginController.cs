@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using fifa.Data;
 using fifa.Models;
@@ -20,12 +19,10 @@ namespace fifa.Controllers
         [HttpPost]
         public string Login([FromBody]User userF)
         {
-            Console.WriteLine("asdasd");
-            Console.WriteLine(userF);
             var login = userF.Login;
             var password = userF.Password;
-            var user = _dbContext.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
-            if (user == null)
+            var user = _dbContext.Users.FirstOrDefault(u => u.Login == login);
+            if (user == null || !SecurePasswordHasher.Verify(password, user.Password))
             {
                 return "No";
             }
@@ -36,7 +33,7 @@ namespace fifa.Controllers
         public string GetLogin(string token)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Token == token);
-            return user.Login;
+            return user?.Login;
         }
     }
 }

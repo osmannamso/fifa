@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using fifa.Controllers;
 using fifa.Data;
@@ -12,7 +13,15 @@ namespace fifa
     {
         public async Task Send(string message)
         {
-            await Clients.All.SendAsync("Send", message);
+            string[] stringArray = {"Osman bad", "Barca bad", "Messi bad"};
+            if (Array.IndexOf(stringArray, message) > -1)
+            {
+                await Clients.All.SendAsync("Send", "please don't write such things");
+            }
+            else
+            {
+                await Clients.All.SendAsync("Send", message);
+            }
         }
 
         public async Task PlaySeason(string season)

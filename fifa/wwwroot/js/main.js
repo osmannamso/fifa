@@ -10,6 +10,10 @@ const connection = new signalR.HubConnectionBuilder()
 connection.start().catch(err => console.error(err.toString()));
 
 connection.on('Send', (message) => {
+    if (['Osman bad', 'Barca bad', 'Messi bad'].indexOf(message) > -1) {
+        alert('Do not write this');
+        return;
+    }
     appendLine(message);
 });
 try {

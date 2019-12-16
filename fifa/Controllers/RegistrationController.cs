@@ -26,10 +26,8 @@ namespace fifa.Controllers
         public string Register([FromBody]User userF)
         {
             var login = userF.Login;
-            var password = userF.Password;
-            Console.WriteLine("asdasd");
-            Console.WriteLine(login);
-            var token = SecurePasswordHasher.Hash(login);
+            var password = SecurePasswordHasher.Hash(userF.Password);
+            var token = SecurePasswordHasher.Hash(login + password);
             User user = new User()
             {
                 Login = login,

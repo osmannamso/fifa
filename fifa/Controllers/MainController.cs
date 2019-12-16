@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using fifa.Data;
 using fifa.Models;
-using fifa.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +26,7 @@ namespace fifa.Controllers
             {
                 return null;
             }
-            return Json(result);
+            return Json(true);
         }
 
         public int Zero()
@@ -156,7 +154,7 @@ namespace fifa.Controllers
             return View(players);
         }
         
-        public Game Play(Club a, Club b, string Season="Training", string League="Training", bool notFinal=true)
+        public Game Play(Club a, Club b, string season="Training", string league="Training", bool notFinal=true)
         {
             int homePlus = 0;
             if (notFinal)
@@ -230,10 +228,10 @@ namespace fifa.Controllers
                             {
                                 aGoals += aPlayer.Name + " " + i + ", ";
                                 aScore++;
-                                if (_dbContext.TopScorers.FirstOrDefault(c => c.PlayerId == aPlayer.Id && c.League == League && c.Season == Season) != null)
+                                if (_dbContext.TopScorers.FirstOrDefault(c => c.PlayerId == aPlayer.Id && c.League == league && c.Season == season) != null)
                                 {
                                     var topScorer = _dbContext.TopScorers.FirstOrDefault(c =>
-                                        c.PlayerId == aPlayer.Id && c.League == League && c.Season == Season);
+                                        c.PlayerId == aPlayer.Id && c.League == league && c.Season == season);
                                     topScorer.Count++;
                                     _dbContext.Update(topScorer);
                                     _dbContext.SaveChanges();
@@ -244,8 +242,8 @@ namespace fifa.Controllers
                                     {
                                         PlayerId = aPlayer.Id,
                                         Count = 1,
-                                        League = League,
-                                        Season = Season
+                                        League = league,
+                                        Season = season
                                     };
                                     _dbContext.Entry(topScorer).State = EntityState.Added;
                                     _dbContext.SaveChanges();
@@ -262,10 +260,10 @@ namespace fifa.Controllers
                             {
                                 bGoals += bPlayer.Name + " " + i + ", ";
                                 bScore++;
-                                if (_dbContext.TopScorers.FirstOrDefault(c => c.PlayerId == bPlayer.Id && c.League == League && c.Season == Season) != null)
+                                if (_dbContext.TopScorers.FirstOrDefault(c => c.PlayerId == bPlayer.Id && c.League == league && c.Season == season) != null)
                                 {
                                     var topScorer = _dbContext.TopScorers.FirstOrDefault(c =>
-                                        c.PlayerId == bPlayer.Id && c.League == League && c.Season == Season);
+                                        c.PlayerId == bPlayer.Id && c.League == league && c.Season == season);
                                     topScorer.Count++;
                                     _dbContext.Update(topScorer);
                                     _dbContext.SaveChanges();
@@ -276,8 +274,8 @@ namespace fifa.Controllers
                                     {
                                         PlayerId = bPlayer.Id,
                                         Count = 1,
-                                        League = League,
-                                        Season = Season
+                                        League = league,
+                                        Season = season
                                     };
                                     _dbContext.Entry(topScorer).State = EntityState.Added;
                                     _dbContext.SaveChanges();
@@ -304,8 +302,8 @@ namespace fifa.Controllers
             {
                 HomeClub = a.Name,
                 GuestClub = b.Name,
-                League = League,
-                Season = Season,
+                League = league,
+                Season = season,
                 HomeGoals = aGoals,
                 GuestGoals = bGoals,
                 HomeScore = aScore,
