@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fifa", "fifa\fifa.csproj", "{9C46B0B9-65DA-4B1A-9F76-0669072DF850}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testFifa", "testFifa\testFifa.csproj", "{F04DE75E-D684-4C1A-90EE-9062B47F5EC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9C46B0B9-65DA-4B1A-9F76-0669072DF850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C46B0B9-65DA-4B1A-9F76-0669072DF850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C46B0B9-65DA-4B1A-9F76-0669072DF850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F04DE75E-D684-4C1A-90EE-9062B47F5EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04DE75E-D684-4C1A-90EE-9062B47F5EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04DE75E-D684-4C1A-90EE-9062B47F5EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04DE75E-D684-4C1A-90EE-9062B47F5EC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

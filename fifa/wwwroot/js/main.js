@@ -10,16 +10,16 @@ const connection = new signalR.HubConnectionBuilder()
 connection.start().catch(err => console.error(err.toString()));
 
 connection.on('Send', (message) => {
-    if (['Osman bad', 'Barca bad', 'Messi bad'].indexOf(message) > -1) {
-        alert('Do not write this');
-        return;
-    }
     appendLine(message);
 });
 try {
     document.getElementById('frm-send-message').addEventListener('submit', event => {
         let message = document.getElementById('message').value;
         document.getElementById('message').value = '';
+        if (['Osman bad', 'Barca bad'].indexOf(message) > -1) {
+            alert('Do not write this');
+            return;
+        }
 
         connection.invoke('Send', message);
         event.preventDefault();
