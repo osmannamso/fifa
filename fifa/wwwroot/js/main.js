@@ -17,7 +17,10 @@ try {
         let message = document.getElementById('message').value;
         document.getElementById('message').value = '';
         if (['Osman bad', 'Barca bad'].indexOf(message) > -1) {
-            alert('Do not write this');
+            $('#error').html('Do not write this');
+            setTimeout(() => {
+                $('#error').html('');
+            }, 2000);
             return;
         }
 

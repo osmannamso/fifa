@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using fifa;
 using fifa.Controllers;
+using fifa.Data;
 using fifa.Models;
+using fifa.Views.Main;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -39,6 +41,37 @@ namespace testFifa
                 new League{Id=8, Name="Super Lig", Logo="https://www.pesmaster.com/pes-2019/graphics/leaguelogos/emb_0119.png?w=128", Place=4}
             };
             return leagues;
+        }
+        
+        [Fact] 
+        public void Test2()
+        {
+            var clubController = new ClubController(new ClubsContext());
+            Assert.Single(clubController.Search("FC Barcelona"));
+        }
+
+        [Fact]
+        public void Test3()
+        {
+            LoginController loginController = new LoginController(new ClubsContext());
+            User user = new User();
+            user.Login = "osman";
+            user.Password = "osman";
+            Assert.NotEmpty(loginController.Login(user));
+        }
+
+        [Fact]
+        public void Test4()
+        {
+            MainController mainController = new MainController(new ClubsContext());
+            Assert.Equal(0, mainController.Zero());
+        }
+
+        [Fact]
+        public void Test5()
+        {
+            RegistrationController registrationController = new RegistrationController(new ClubsContext());
+            Assert.Equal("Yeah", registrationController.Registration());
         }
     }
 }
